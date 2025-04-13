@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Manage all your saved privacy policies in one place">
+  <title>My Policies - Privacy Policy Generator</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="./public/css/style.css">
+  <!-- FontAwesome -->
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="./dashboard.html">
+        <i class="fas fa-shield-alt me-2"></i>Privacy Policy Generator
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="./dashboard.html">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./generate.html">Generate Policy</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="./my-policies.html">My Policies</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-user-circle me-1"></i><span id="usernameDisplay">Account</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="./profile.html"><i class="fas fa-user-edit me-2"></i>Profile</a></li>
+              <li><a class="dropdown-item" href="./settings.html"><i class="fas fa-cog me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="#" id="logoutBtn"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container py-5">
+    <!-- Alert messages -->
+    <div class="alert alert-success d-none mb-4" id="successAlert" role="alert"></div>
+    <div class="alert alert-danger d-none mb-4" id="errorAlert" role="alert"></div>
+
+    <div class="row mb-4">
+      <div class="col-12 d-flex justify-content-between align-items-center">
+        <div>
+          <h1 class="fw-bold">My Policies</h1>
+          <p class="text-muted">View and manage all your saved privacy policies</p>
+        </div>
+        <div>
+          <a href="./generate.html" class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i>Create New Policy
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Policies List -->
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-0">
+        <div class="p-4" id="policiesContainer">
+          <!-- Policies will be loaded here -->
+          <div class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3">Loading your policies...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="modal fade" id="deletePolicyModal" tabindex="-1" aria-labelledby="deletePolicyModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title" id="deletePolicyModalLabel">Confirm Deletion</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete this policy? This action cannot be undone.</p>
+          <p class="mb-0 fw-bold" id="policyToDeleteName"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+            <i class="fas fa-trash-alt me-2"></i>Delete Policy
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white py-4 mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h5><i class="fas fa-shield-alt me-2"></i>Privacy Policy Generator</h5>
+          <p>Create GDPR-compliant privacy policies for your website quickly and easily.</p>
+        </div>
+        <div class="col-md-3">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="./dashboard.html" class="text-white"><i class="fas fa-home me-1"></i> Dashboard</a></li>
+            <li><a href="./generate.html" class="text-white"><i class="fas fa-file-alt me-1"></i> Generate Policy</a></li>
+            <li><a href="./my-policies.html" class="text-white"><i class="fas fa-list me-1"></i> My Policies</a></li>
+            <li><a href="./contact.html" class="text-white"><i class="fas fa-envelope me-1"></i> Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h5>Legal</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white"><i class="fas fa-gavel me-1"></i> Terms of Service</a></li>
+            <li><a href="#" class="text-white"><i class="fas fa-lock me-1"></i> Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+      <div class="text-center">
+        <p>&copy; <span id="currentYear"></span> Privacy Policy Generator. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- jQuery (needed for some features) -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <!-- Custom JS -->
+  <script src="./public/js/script.js"></script>
+  <script src="./public/js/authentication.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set current year in footer
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
+      
+      // Load user's policies
+      loadUserPolicies();
+      
+      // Variables for policy deletion
+      let policyToDeleteId = null;
+      const deletePolicyModal = new bootstrap.Modal(document.getElementById('deletePolicyModal'));
+      
+      // Set up event delegation for policy actions
+      document.addEventListener('click', function(e) {
+        // Delete policy button clicked
+        if (e.target.closest('.delete-policy-btn')) {
+          const btn = e.target.closest('.delete-policy-btn');
+          const policyId = btn.getAttribute('data-policy-id');
+          const policyName = btn.getAttribute('data-policy-name');
+          
+          // Set the policy ID and name in the modal
+          policyToDeleteId = policyId;
+          document.getElementById('policyToDeleteName').textContent = policyName;
+          
+          // Show the delete confirmation modal
+          deletePolicyModal.show();
+        }
+      });
+      
+      // Handle confirm delete button click
+      document.getElementById('confirmDeleteBtn').addEventListener('click', async function() {
+        if (!policyToDeleteId) return;
+        
+        try {
+          // Show loading spinner
+          showLoadingSpinner('Deleting policy...');
+          
+          // Close the modal
+          deletePolicyModal.hide();
+          
+          // Delete the policy
+          await deletePolicy(policyToDeleteId);
+          
+          // Hide spinner
+          hideLoadingSpinner();
+          
+          // Show success message
+          showSuccessAlert('Policy deleted successfully!');
+          
+          // Reset the policy ID
+          policyToDeleteId = null;
+          
+          // Reload policies
+          setTimeout(() => {
+            loadUserPolicies();
+          }, 1000);
+        } catch (error) {
+          hideLoadingSpinner();
+          showErrorAlert('Error deleting policy: ' + error.message);
+          console.error('Delete policy error:', error);
+        }
+      });
+      
+      // Show success alert
+      function showSuccessAlert(message) {
+        const alertElement = document.createElement('div');
+        alertElement.className = 'alert alert-success alert-dismissible fade show';
+        alertElement.innerHTML = `
+          ${message}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        `;
+        
+        const container = document.querySelector('.container');
+        container.insertBefore(alertElement, container.firstChild);
+        
+        setTimeout(() => {
+          const alert = bootstrap.Alert.getOrCreateInstance(alertElement);
+          alert.close();
+        }, 5000);
+      }
+      
+      // Show error alert
+      function showErrorAlert(message) {
+        const alertElement = document.createElement('div');
+        alertElement.className = 'alert alert-danger alert-dismissible fade show';
+        alertElement.innerHTML = `
+          ${message}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        `;
+        
+        const container = document.querySelector('.container');
+        container.insertBefore(alertElement, container.firstChild);
+        
+        setTimeout(() => {
+          const alert = bootstrap.Alert.getOrCreateInstance(alertElement);
+          alert.close();
+        }, 5000);
+      }
+    });
+    
+    /**
+     * Load user's saved policies
+     */
+    async function loadUserPolicies() {
+      const policiesContainer = document.getElementById('policiesContainer');
+      
+      if (!policiesContainer) {
+        return;
+      }
+      
+      try {
+        // Show loading spinner
+        policiesContainer.innerHTML = `
+          <div class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3">Loading your policies...</p>
+          </div>
+        `;
+        
+        // Get user policies
+        const policies = await getUserPolicies();
+        
+        if (policies.length === 0) {
+          policiesContainer.innerHTML = `
+            <div class="text-center py-5">
+              <i class="fas fa-file-alt fa-4x text-muted mb-3"></i>
+              <h3>No Policies Found</h3>
+              <p class="text-muted">You haven't created any privacy policies yet.</p>
+              <a href="./generate.html" class="btn btn-primary mt-2">
+                <i class="fas fa-plus me-2"></i>Create Your First Policy
+              </a>
+            </div>
+          `;
+          return;
+        }
+        
+        // Sort policies by date (newest first)
+        policies.sort((a, b) => new Date(b.created_at || b.created) - new Date(a.created_at || a.created));
+        
+        // Create policy list HTML
+        const policyListHtml = policies.map(policy => {
+          const date = new Date(policy.created_at || policy.created);
+          const formattedDate = date.toLocaleDateString('en-US', {
+            year: 'numeric', month: 'short', day: 'numeric'
+          });
+          
+          const websiteName = policy.formData?.websiteName || policy.website_name || 'Unnamed Website';
+          const companyName = policy.formData?.companyName || policy.company_name || 'Unnamed Company';
+          
+          return `
+            <div class="card mb-3 shadow-sm">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <h5 class="card-title mb-1">${websiteName} Privacy Policy</h5>
+                    <p class="text-muted small mb-2">Company: ${companyName}</p>
+                    <p class="text-muted small mb-0"><i class="fas fa-calendar-alt me-1"></i> Created: ${formattedDate}</p>
+                  </div>
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-outline-secondary" type="button" id="policyActions${policy.id}" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="policyActions${policy.id}">
+                      <li><a class="dropdown-item" href="./policy-view.html?id=${policy.id}"><i class="fas fa-eye me-2"></i>View</a></li>
+                      <li><a class="dropdown-item" href="./generate.html?edit=${policy.id}"><i class="fas fa-edit me-2"></i>Edit</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item text-danger delete-policy-btn" href="#" data-policy-id="${policy.id}" data-policy-name="${websiteName}"><i class="fas fa-trash-alt me-2"></i>Delete</a></li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-3">
+                  <a href="./policy-view.html?id=${policy.id}" class="btn btn-sm btn-primary">
+                    <i class="fas fa-eye me-1"></i> View Policy
+                  </a>
+                  <a href="#" class="btn btn-sm btn-outline-danger delete-policy-btn" data-policy-id="${policy.id}" data-policy-name="${websiteName}">
+                    <i class="fas fa-trash-alt me-1"></i> Delete
+                  </a>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+        
+        policiesContainer.innerHTML = `
+          <h2 class="mb-4">My Privacy Policies</h2>
+          <div class="policy-list">
+            ${policyListHtml}
+          </div>
+        `;
+        
+      } catch (error) {
+        if (error.message === 'User not authenticated') {
+          window.location.href = 'login.html?message=Please log in to view your policies&type=info';
+        } else {
+          policiesContainer.innerHTML = `
+            <div class="alert alert-danger" role="alert">
+              <i class="fas fa-exclamation-circle me-2"></i>
+              Error loading policies: ${error.message}
+            </div>
+            <div class="text-center">
+              <a href="javascript:location.reload()" class="btn btn-primary">
+                <i class="fas fa-sync-alt me-2"></i>Try Again
+              </a>
+            </div>
+          `;
+        }
+        console.error('Load policies error:', error);
+      }
+    }
+  </script>
+</body>
+</html>

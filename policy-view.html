@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="View your generated privacy policy">
+  <title>View Policy - Privacy Policy Generator</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="./public/css/style.css">
+  <!-- FontAwesome -->
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="./dashboard.html">
+        <i class="fas fa-shield-alt me-2"></i>Privacy Policy Generator
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="./dashboard.html">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./generate.html">Generate Policy</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./my-policies.html">My Policies</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-user-circle me-1"></i><span id="usernameDisplay">Account</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="./profile.html"><i class="fas fa-user-edit me-2"></i>Profile</a></li>
+              <li><a class="dropdown-item" href="./settings.html"><i class="fas fa-cog me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="#" id="logoutBtn"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container py-5">
+    <!-- Alert messages -->
+    <div class="alert alert-success d-none mb-4" id="successAlert" role="alert"></div>
+    <div class="alert alert-danger d-none mb-4" id="errorAlert" role="alert"></div>
+
+    <div class="row mb-4">
+      <div class="col-12">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./dashboard.html">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="./my-policies.html">My Policies</a></li>
+            <li class="breadcrumb-item active" aria-current="page" id="policyBreadcrumb">Policy Details</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-12 d-flex justify-content-between align-items-center">
+        <div>
+          <h1 class="fw-bold" id="policyTitle">Privacy Policy</h1>
+          <p class="text-muted" id="policyMeta">Loading policy details...</p>
+        </div>
+        <div>
+          <div class="btn-group">
+            <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-download me-2"></i>Download
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#" id="downloadPdf"><i class="fas fa-file-pdf me-2 text-danger"></i>PDF</a></li>
+              <li><a class="dropdown-item" href="#" id="downloadTxt"><i class="fas fa-file-alt me-2 text-secondary"></i>Text File</a></li>
+            </ul>
+          </div>
+          <button class="btn btn-outline-secondary ms-2" id="copyText">
+            <i class="fas fa-copy me-2"></i>Copy Text
+          </button>
+          <a href="./my-policies.html" class="btn btn-outline-secondary ms-2">
+            <i class="fas fa-arrow-left me-2"></i>Back to Policies
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Policy Content -->
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <div id="policyContent" class="policy-content">
+          <!-- Policy content will be loaded here -->
+          <div class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3">Loading policy content...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white py-4 mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h5><i class="fas fa-shield-alt me-2"></i>Privacy Policy Generator</h5>
+          <p>Create GDPR-compliant privacy policies for your website quickly and easily.</p>
+        </div>
+        <div class="col-md-3">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="./dashboard.html" class="text-white"><i class="fas fa-home me-1"></i> Dashboard</a></li>
+            <li><a href="./generate.html" class="text-white"><i class="fas fa-file-alt me-1"></i> Generate Policy</a></li>
+            <li><a href="./my-policies.html" class="text-white"><i class="fas fa-list me-1"></i> My Policies</a></li>
+            <li><a href="./contact.html" class="text-white"><i class="fas fa-envelope me-1"></i> Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h5>Legal</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white"><i class="fas fa-gavel me-1"></i> Terms of Service</a></li>
+            <li><a href="#" class="text-white"><i class="fas fa-lock me-1"></i> Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+      <div class="text-center">
+        <p>&copy; <span id="currentYear"></span> Privacy Policy Generator. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- jQuery (needed for some features) -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <!-- html2pdf for PDF generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script src="./public/js/script.js"></script>
+  <script src="./public/js/authentication.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set current year in footer
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
+      
+      // Check authentication status
+      checkAuthStatus().then(user => {
+        if (user) {
+          // Update username in the navbar
+          document.getElementById('usernameDisplay').textContent = user.username;
+          
+          // Add logout event handler
+          document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            if (confirm('Are you sure you want to log out?')) {
+              logout();
+            }
+          });
+          
+          // Load policy data
+          loadPolicyData();
+        } else {
+          // Redirect to login if not authenticated
+          window.location.href = 'login.html?message=Please log in to view your policies&type=info';
+        }
+      }).catch(error => {
+        console.error('Authentication error:', error);
+        window.location.href = 'login.html?message=Authentication error&type=error';
+      });
+    });
+    
+    async function loadPolicyData() {
+      // Get policy ID from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const policyId = urlParams.get('id');
+      
+      if (!policyId) {
+        showErrorMessage('No policy ID specified');
+        return;
+      }
+      
+      try {
+        // Try to load from sessionStorage first (if coming from my-policies page)
+        let policy = null;
+        const sessionPolicy = sessionStorage.getItem('currentPolicy');
+        
+        if (sessionPolicy) {
+          const parsedPolicy = JSON.parse(sessionPolicy);
+          if (parsedPolicy.id === policyId) {
+            policy = parsedPolicy;
+          }
+        }
+        
+        // If not in session storage, fetch it from server/storage
+        if (!policy) {
+          // Get all policies
+          const policies = await getUserPolicies();
+          policy = policies.find(p => p.id === policyId);
+          
+          if (!policy) {
+            showErrorMessage('Policy not found');
+            return;
+          }
+        }
+        
+        // Update page title and meta
+        document.title = `${policy.formData ? policy.formData.websiteName : policy.website_name} - Privacy Policy`;
+        document.getElementById('policyTitle').textContent = `Privacy Policy for ${policy.formData ? policy.formData.websiteName : policy.website_name}`;
+        document.getElementById('policyBreadcrumb').textContent = policy.formData ? policy.formData.websiteName : policy.website_name;
+        
+        // Format date
+        const date = new Date(policy.created_at || policy.created);
+        const formattedDate = date.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+        
+        document.getElementById('policyMeta').innerHTML = `
+          <i class="fas fa-calendar-alt me-2"></i>Created on ${formattedDate} |
+          <i class="fas fa-building me-2"></i>Company: ${policy.formData ? policy.formData.companyName : policy.company_name}
+        `;
+        
+        // Display policy content
+        const policyContent = document.getElementById('policyContent');
+        policyContent.innerHTML = policy.policyText || policy.content;
+        
+        // Set up download handlers
+        setupDownloadHandlers(policy);
+        
+        // Set up copy to clipboard handler
+        document.getElementById('copyText').addEventListener('click', function() {
+          const text = policyContent.innerText;
+          navigator.clipboard.writeText(text).then(function() {
+            showSuccessMessage('Policy text copied to clipboard!');
+          }).catch(function(err) {
+            showErrorMessage('Could not copy text: ' + err);
+          });
+        });
+        
+      } catch (error) {
+        console.error('Error loading policy:', error);
+        showErrorMessage('Error loading policy: ' + error.message);
+      }
+    }
+    
+    function setupDownloadHandlers(policy) {
+      // Download as PDF
+      document.getElementById('downloadPdf').addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const element = document.getElementById('policyContent');
+        const websiteName = policy.formData ? policy.formData.websiteName : policy.website_name;
+        const filename = `${websiteName.replace(/\s+/g, '_')}_Privacy_Policy.pdf`;
+        
+        const opt = {
+          margin: [0.5, 0.5, 0.5, 0.5],
+          filename: filename,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true },
+          jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+        
+        showLoadingSpinner('Generating PDF...');
+        
+        html2pdf().from(element).set(opt).save().then(function() {
+          hideLoadingSpinner();
+          showSuccessMessage('PDF downloaded successfully!');
+        }).catch(function(error) {
+          hideLoadingSpinner();
+          showErrorMessage('Error generating PDF: ' + error.message);
+        });
+      });
+      
+      // Download as Text
+      document.getElementById('downloadTxt').addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const element = document.getElementById('policyContent');
+        const websiteName = policy.formData ? policy.formData.websiteName : policy.website_name;
+        const filename = `${websiteName.replace(/\s+/g, '_')}_Privacy_Policy.txt`;
+        
+        const text = element.innerText;
+        const blob = new Blob([text], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        
+        setTimeout(function() {
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        }, 100);
+        
+        showSuccessMessage('Text file downloaded successfully!');
+      });
+    }
+    
+    function showLoadingSpinner(message = 'Loading...') {
+      // Create spinner overlay if it doesn't exist
+      if (!document.getElementById('spinnerOverlay')) {
+        const spinnerOverlay = document.createElement('div');
+        spinnerOverlay.id = 'spinnerOverlay';
+        spinnerOverlay.className = 'position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-dark bg-opacity-25';
+        spinnerOverlay.style.zIndex = '9999';
+        
+        spinnerOverlay.innerHTML = `
+          <div class="bg-white p-4 rounded shadow-lg text-center">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2 mb-0" id="spinnerMessage">${message}</p>
+          </div>
+        `;
+        
+        document.body.appendChild(spinnerOverlay);
+      } else {
+        // Update existing spinner message
+        document.getElementById('spinnerMessage').textContent = message;
+        document.getElementById('spinnerOverlay').classList.remove('d-none');
+      }
+    }
+    
+    function hideLoadingSpinner() {
+      const spinnerOverlay = document.getElementById('spinnerOverlay');
+      if (spinnerOverlay) {
+        spinnerOverlay.classList.add('d-none');
+      }
+    }
+    
+    function showSuccessMessage(message) {
+      const successAlert = document.getElementById('successAlert');
+      successAlert.textContent = message;
+      successAlert.classList.remove('d-none');
+      
+      setTimeout(() => {
+        successAlert.classList.add('d-none');
+      }, 5000);
+    }
+    
+    function showErrorMessage(message) {
+      const errorAlert = document.getElementById('errorAlert');
+      errorAlert.textContent = message;
+      errorAlert.classList.remove('d-none');
+      
+      setTimeout(() => {
+        errorAlert.classList.add('d-none');
+      }, 5000);
+    }
+  </script>
+</body>
+</html>

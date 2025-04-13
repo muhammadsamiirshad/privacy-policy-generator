@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Generate a professional, customized privacy policy for your website or app that complies with GDPR, CCPA, and other regulations.">
+  <title>Generate Policy - Privacy Policy Generator</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="./public/css/style.css">
+  <!-- FontAwesome -->
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="./index.html">
+        <i class="fas fa-shield-alt me-2"></i>Privacy Policy Generator
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto" id="navbarLinks">
+          <!-- Dynamic navigation links will be inserted here by auth.js -->
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Main Content -->
+  <main class="container py-5">
+    <!-- Alert messages -->
+    <div class="alert alert-success d-none mb-4" id="successAlert" role="alert"></div>
+    <div class="alert alert-danger d-none mb-4" id="errorAlert" role="alert"></div>
+
+    <div class="row mb-4">
+      <div class="col-12">
+        <h1 class="fw-bold">Generate Privacy Policy</h1>
+        <p class="text-muted">Fill out the form below to create a customized privacy policy for your website or application.</p>
+      </div>
+    </div>
+
+    <!-- Authentication Check Section -->
+    <div id="authCheckContainer">
+      <!-- This will be populated by script - either showing the form or login message -->
+      <div class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-3">Checking authentication status...</p>
+      </div>
+    </div>
+
+    <!-- Add Policy Form below - will be shown only to authenticated users -->
+    <div id="policyFormContainer" style="display: none;">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+              <form id="policyForm" class="needs-validation" novalidate>
+                <!-- Basic Information Section -->
+                <div class="form-section mb-4 bg-light p-4 rounded">
+                  <h3 class="form-section-title"><i class="fas fa-info-circle me-2 text-primary"></i>Basic Information</h3>
+                  <div class="row g-3">
+                    <div class="col-md-6 mb-3">
+                      <label for="websiteName" class="form-label">Website/App Name*</label>
+                      <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-globe"></i></span>
+                        <input type="text" class="form-control" id="websiteName" name="websiteName" required>
+                      </div>
+                      <div class="invalid-feedback">Please provide your website or app name.</div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="websiteUrl" class="form-label">Website URL (optional)</label>
+                      <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-link"></i></span>
+                        <input type="url" class="form-control" id="websiteUrl" name="websiteUrl" placeholder="https://example.com">
+                      </div>
+                      <div class="invalid-feedback">Please enter a valid URL.</div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="companyName" class="form-label">Company/Organization Name*</label>
+                      <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-building"></i></span>
+                        <input type="text" class="form-control" id="companyName" name="companyName" required>
+                      </div>
+                      <div class="invalid-feedback">Please provide your company name.</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Data Collection -->
+                <div class="form-section mb-4 bg-light p-4 rounded">
+                  <h3 class="form-section-title"><i class="fas fa-database me-2 text-primary"></i>Data Collection</h3>
+                  <div class="mb-3">
+                    <label for="collectedData" class="form-label">What personal data do you collect?*</label>
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="fas fa-list"></i></span>
+                      <input type="text" class="form-control" id="collectedData" name="collectedData" placeholder="Email Address, Name, Phone Number" required>
+                    </div>
+                    <div class="form-text"><i class="fas fa-info-circle me-1"></i>Enter data types separated by commas.</div>
+                    <div class="invalid-feedback">Please specify what data you collect.</div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label d-block">Do you use cookies or tracking technologies?*</label>
+                    <div class="form-check form-check-inline custom-radio">
+                      <input class="form-check-input" type="radio" name="useCookies" id="useCookiesYes" value="yes" required>
+                      <label class="form-check-label" for="useCookiesYes">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline custom-radio">
+                      <input class="form-check-input" type="radio" name="useCookies" id="useCookiesNo" value="no" required>
+                      <label class="form-check-label" for="useCookiesNo">No</label>
+                    </div>
+                    <div class="invalid-feedback">Please select an option.</div>
+                  </div>
+
+                  <div id="cookiesDetailsDiv" class="mb-3 animate-fade" style="display: none;">
+                    <label for="cookiesPurpose" class="form-label">What do you use cookies for?</label>
+                    <select class="form-select" id="cookiesPurpose" name="cookiesPurpose" multiple>
+                      <option value="essential">Essential site functionality</option>
+                      <option value="analytics">Analytics</option>
+                      <option value="advertising">Advertising</option>
+                      <option value="preferences">User preferences</option>
+                      <option value="social">Social media features</option>
+                    </select>
+                    <div class="form-text"><i class="fas fa-keyboard me-1"></i>Hold Ctrl (or Cmd on Mac) to select multiple options.</div>
+                  </div>
+                </div>
+
+                <!-- Data Storage & Processing -->
+                <div class="form-section mb-4 bg-light p-4 rounded">
+                  <h3 class="form-section-title"><i class="fas fa-server me-2 text-primary"></i>Data Storage & Processing</h3>
+                  <div class="mb-3">
+                    <label for="dataStorage" class="form-label">How do you store and process data?*</label>
+                    <textarea class="form-control" id="dataStorage" name="dataStorage" rows="3" required></textarea>
+                    <div class="invalid-feedback">Please provide information about data storage.</div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="dataRetention" class="form-label">How long do you retain data?*</label>
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                      <input type="text" class="form-control" id="dataRetention" name="dataRetention" placeholder="e.g., 'Until users delete their accounts' or 'For 2 years'" required>
+                    </div>
+                    <div class="invalid-feedback">Please specify your data retention period.</div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label d-block">Where is data stored? (Select all that apply)*</label>
+                    <div class="data-regions-container p-3 border rounded">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="dataRegions" id="dataRegionUSA" value="usa">
+                        <label class="form-check-label" for="dataRegionUSA"><i class="fas fa-flag-usa me-2"></i>United States</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="dataRegions" id="dataRegionEU" value="eu">
+                        <label class="form-check-label" for="dataRegionEU"><i class="fas fa-globe-europe me-2"></i>European Union</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="dataRegions" id="dataRegionOther" value="other">
+                        <label class="form-check-label" for="dataRegionOther"><i class="fas fa-globe me-2"></i>Other regions</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Third Party Services -->
+                <div class="form-section mb-4 bg-light p-4 rounded">
+                  <h3 class="form-section-title"><i class="fas fa-handshake me-2 text-primary"></i>Third-Party Services</h3>
+                  <div class="mb-3">
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" id="useThirdParty" name="useThirdParty">
+                      <label class="form-check-label" for="useThirdParty">I use third-party services that may access user data</label>
+                    </div>
+                  </div>
+
+                  <div id="thirdPartyContainer" class="mb-3 animate-fade" style="display: none;">
+                    <label for="thirdPartyServices" class="form-label">Which third-party services do you use?</label>
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="fas fa-plug"></i></span>
+                      <input type="text" class="form-control" id="thirdPartyServices" name="thirdPartyServices" placeholder="Google Analytics, Facebook Pixel, Stripe">
+                    </div>
+                    <div class="form-text"><i class="fas fa-info-circle me-1"></i>Enter service names separated by commas.</div>
+                  </div>
+                </div>
+
+                <!-- Legal Compliance -->
+                <div class="form-section mb-4 bg-light p-4 rounded">
+                  <h3 class="form-section-title"><i class="fas fa-gavel me-2 text-primary"></i>Legal Compliance</h3>
+                  <div class="mb-3">
+                    <label class="form-label d-block">Is your policy GDPR compliant? (EU)*</label>
+                    <div class="btn-group" role="group">
+                      <input type="radio" class="btn-check" name="gdprCompliant" id="gdprYes" value="yes" required>
+                      <label class="btn btn-outline-primary" for="gdprYes">Yes</label>
+                      
+                      <input type="radio" class="btn-check" name="gdprCompliant" id="gdprNo" value="no" required>
+                      <label class="btn btn-outline-primary" for="gdprNo">No</label>
+                    </div>
+                    <div class="invalid-feedback">Please select an option.</div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label d-block">Is your policy CCPA compliant? (California)*</label>
+                    <div class="btn-group" role="group">
+                      <input type="radio" class="btn-check" name="ccpaCompliant" id="ccpaYes" value="yes" required>
+                      <label class="btn btn-outline-primary" for="ccpaYes">Yes</label>
+                      
+                      <input type="radio" class="btn-check" name="ccpaCompliant" id="ccpaNo" value="no" required>
+                      <label class="btn btn-outline-primary" for="ccpaNo">No</label>
+                    </div>
+                    <div class="invalid-feedback">Please select an option.</div>
+                  </div>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="form-section mb-4 bg-light p-4 rounded">
+                  <h3 class="form-section-title"><i class="fas fa-address-card me-2 text-primary"></i>Contact Information</h3>
+                  <div class="row g-3">
+                    <div class="col-md-6 mb-3">
+                      <label for="contactEmail" class="form-label">Contact Email*</label>
+                      <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        <input type="email" class="form-control" id="contactEmail" name="contactEmail" required>
+                      </div>
+                      <div class="invalid-feedback">Please provide a valid email.</div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="contactPhone" class="form-label">Contact Phone (optional)</label>
+                      <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                        <input type="tel" class="form-control" id="contactPhone" name="contactPhone">
+                      </div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                      <label for="contactAddress" class="form-label">Physical Address (optional)</label>
+                      <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                        <textarea class="form-control" id="contactAddress" name="contactAddress" rows="2"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Submit Section -->
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="fas fa-file-alt me-2"></i>Generate Privacy Policy
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Login Required Section -->
+    <div id="loginRequiredContainer" style="display: none;">
+      <div class="card border-0 shadow-lg">
+        <div class="card-body p-5 text-center">
+          <i class="fas fa-lock fa-4x mb-4 text-primary"></i>
+          <h2 class="mb-4">Login Required</h2>
+          <p class="lead mb-4">You need to be logged in to generate a privacy policy.</p>
+          <div class="d-flex justify-content-center gap-3">
+            <a href="./login.html" class="btn btn-primary">
+              <i class="fas fa-sign-in-alt me-2"></i>Login
+            </a>
+            <a href="./register.html" class="btn btn-outline-secondary">
+              <i class="fas fa-user-plus me-2"></i>Create Account
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Policy Modal -->
+    <div class="modal fade" id="policyModal" tabindex="-1" aria-labelledby="policyModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title" id="policyModalLabel">Your Generated Privacy Policy</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div id="policyContent"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="copyText" class="btn btn-outline-secondary">
+              <i class="fas fa-copy me-2"></i>Copy Text
+            </button>
+            <button type="button" id="downloadTxt" class="btn btn-outline-secondary">
+              <i class="fas fa-file-alt me-2"></i>Download as Text
+            </button>
+            <button type="button" id="downloadPdf" class="btn btn-outline-secondary">
+              <i class="fas fa-file-pdf me-2"></i>Download as PDF
+            </button>
+            <button type="button" id="saveToAccount" class="btn btn-primary">
+              <i class="fas fa-save me-2"></i>Save to My Account
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white py-4 mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h5><i class="fas fa-shield-alt me-2"></i>Privacy Policy Generator</h5>
+          <p>Create GDPR-compliant privacy policies for your website quickly and easily.</p>
+        </div>
+        <div class="col-md-3">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="./index.html" class="text-white"><i class="fas fa-home me-1"></i> Home</a></li>
+            <li><a href="./about.html" class="text-white"><i class="fas fa-info-circle me-1"></i> About</a></li>
+            <li><a href="./generate.html" class="text-white"><i class="fas fa-file-alt me-1"></i> Generate Policy</a></li>
+            <li><a href="./contact.html" class="text-white"><i class="fas fa-envelope me-1"></i> Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h5>Legal</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white"><i class="fas fa-gavel me-1"></i> Terms of Service</a></li>
+            <li><a href="#" class="text-white"><i class="fas fa-lock me-1"></i> Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+      <div class="text-center">
+        <p>&copy; <span id="currentYear"></span> Privacy Policy Generator. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- jQuery (needed for some features) -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <!-- CryptoJS for encryption (if needed) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <!-- Custom JS -->
+  <script src="./public/js/script.js"></script>
+  <script src="./public/js/authentication.js"></script>
+  <script src="./public/js/navigation.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set current year in footer
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
+      
+      // Check authentication status
+      checkAuthStatus()
+        .then(user => {
+          // Hide loading spinner
+          document.getElementById('authCheckContainer').innerHTML = '';
+          
+          if (user) {
+            // User is logged in, show the policy form
+            document.getElementById('policyFormContainer').style.display = 'block';
+          } else {
+            // User is not logged in, show the login required message
+            document.getElementById('loginRequiredContainer').style.display = 'block';
+          }
+        })
+        .catch(error => {
+          console.error('Authentication check error:', error);
+          // Show login required on error
+          document.getElementById('authCheckContainer').innerHTML = '';
+          document.getElementById('loginRequiredContainer').style.display = 'block';
+        });
+      
+      // Cookie details toggle
+      document.querySelectorAll('input[name="useCookies"]').forEach(function(radio) {
+        radio.addEventListener('change', function() {
+          const cookiesDetailsDiv = document.getElementById('cookiesDetailsDiv');
+          if (cookiesDetailsDiv) {
+            cookiesDetailsDiv.style.display = this.value === 'yes' ? 'block' : 'none';
+          }
+        });
+      });
+      
+      // Third-party services toggle
+      const thirdPartyServices = document.getElementById('thirdPartyServices');
+      const useThirdParty = document.getElementById('useThirdParty');
+      if (thirdPartyServices && useThirdParty) {
+        useThirdParty.addEventListener('change', function() {
+          document.getElementById('thirdPartyContainer').style.display = this.checked ? 'block' : 'none';
+        });
+      }
+    });
+  </script>
+</body>
+</html>

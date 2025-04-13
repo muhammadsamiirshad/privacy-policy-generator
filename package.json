@@ -1,0 +1,43 @@
+{
+  "name": "privacy-policy-generator",
+  "version": "1.0.0",
+  "description": "A client-side web application that generates GDPR-compliant privacy policies",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve -s ."
+  },
+  "keywords": [
+    "privacy",
+    "policy",
+    "generator",
+    "GDPR",
+    "CCPA",
+    "client-side"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "connect-flash": "^0.1.1",
+    "connect-sqlite3": "^0.9.15",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.18.1",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.1.0",
+    "html-to-text": "^9.0.5",
+    "jsonwebtoken": "^9.0.2",
+    "pdfkit": "^0.16.0",
+    "serve": "^14.2.0",
+    "sqlite3": "^5.1.7",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
